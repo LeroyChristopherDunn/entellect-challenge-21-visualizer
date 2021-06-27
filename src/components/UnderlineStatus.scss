@@ -1,0 +1,10 @@
+.underline-status{
+  border-bottom-width: 0.25rem;
+  border-bottom-style: solid;
+}
+.underline-status-pass{
+  border-bottom-color: lime;
+}
+.underline-status-fail{
+  border-bottom-color: red;
+}
