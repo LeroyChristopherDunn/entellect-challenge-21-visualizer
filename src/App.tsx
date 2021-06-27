@@ -51,7 +51,9 @@ function App() {
                     />
                     <div className="app-body">
                         <TransformComponent>
-                            <GameCanvas/>
+                            {!!gameStates && (
+                                <GameCanvas state={gameStates[0]}/>
+                            )}
                         </TransformComponent>
                     </div>
                 </React.Fragment>

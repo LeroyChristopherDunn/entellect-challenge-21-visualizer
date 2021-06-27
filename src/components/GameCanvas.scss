@@ -1,3 +1,4 @@
+$game-canvas: 300px;
 
 .game-canvas-wrapper{
   display: flex;
@@ -5,11 +6,51 @@
   flex: 1;
   justify-content: center;
   align-items: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .game-canvas {
-  width: calc(100vh - 48px);
-  height: calc(100vh - 48px);
-  background-color: white;
-}
+  position: relative;
+  width: $game-canvas * 2;
+  height: $game-canvas * 2;
+  //background-color: white;
 
+  .object {
+    position: absolute;
+    border-radius: $game-canvas * 2;
+  }
+
+  .map{
+    background-color: $surface-color;
+    opacity: 0.25;
+  }
+
+  .player{
+    background-color: white;
+  }
+
+  .food{
+    background-color: lime;
+  }
+
+  .wormhole{
+    background-color: yellow;
+    opacity: 0.75;
+  }
+
+  .gas-cloud{
+    background-color: orange;
+    opacity: 0.25;
+  }
+
+  .asteroid-cloud{
+    background-color: steelblue;
+    opacity: 0.25;
+  }
+
+  .torpedo{
+    background-color: red;
+  }
+
+}
