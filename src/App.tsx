@@ -54,7 +54,7 @@ function App() {
     }
 
     useEffect(() => {
-        if (isPlaying) setTimeout(() => handleStateIncrement(), 100)
+        if (isPlaying) setTimeout(() => handleStateIncrement(), 30)
     }, [isPlaying, stateIndex]);
 
     return (
