@@ -4,6 +4,8 @@ import BackupIcon from "@material-ui/icons/Backup";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import HistoryIcon from '@material-ui/icons/History';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import ZoomOutIcon from "@material-ui/icons/ZoomOut";
 import ZoomOutMapIcon from "@material-ui/icons/ZoomOutMap";
@@ -19,6 +21,9 @@ export function AppHeader(props: {
     onPrevState: () => any,
     onNextState: () => any,
     onStateIndexChange: (stateIndex: number) => any,
+    isPlaying: boolean,
+    onPlay: () => any,
+    onPause: () => any,
 }) {
     return (
         <AppBar position="static" className={'header'}>
@@ -78,6 +83,17 @@ export function AppHeader(props: {
                 <IconButton size={"small"} color="inherit" onClick={() => props.onStateIndexChange(0)}>
                     <HistoryIcon/>
                 </IconButton>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                {!props.isPlaying ? (
+                    <IconButton size={"small"} color="inherit" onClick={props.onPlay}>
+                        <PlayArrowIcon/>
+                    </IconButton>
+                ) : (
+                    <IconButton size={"small"} color="inherit" onClick={props.onPause}>
+                        <PauseIcon/>
+                    </IconButton>
+                )}
                 <HorizontalSpace/>
                 <HorizontalSpace/>
                 <IconButton size={"small"} color="inherit" onClick={props.onPrevState}>

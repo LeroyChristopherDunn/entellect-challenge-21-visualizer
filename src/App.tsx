@@ -1,6 +1,6 @@
 // noinspection ExceptionCaughtLocallyJS
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
 import {GameTickPayload} from "./Types";
@@ -10,6 +10,7 @@ import {GameCanvas} from "./components/GameCanvas";
 function App() {
     const [gameStates, setGameStates] = useState<GameTickPayload[]>();
     const [stateIndex, setStateIndex] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const handleLoadGameFile = async (file?: File) => {
 
@@ -36,17 +37,23 @@ function App() {
     }
 
     const handleStateDecrement = () => {
-        if (!!gameStates && stateIndex > 0) setStateIndex(stateIndex-1);
+        if (!!gameStates && stateIndex > 0)
+            setStateIndex(prevState => prevState-1);
     }
 
     const handleStateIncrement = () => {
-        if (!!gameStates && stateIndex < gameStates.length - 1) setStateIndex(stateIndex+1);
+        if (!!gameStates && stateIndex < gameStates.length - 1)
+            setStateIndex(prevState => prevState+1);
     }
 
     const handleSetStateIndex = (newStateIndex: number) => {
-        if (!!gameStates && newStateIndex > 0 && newStateIndex < gameStates.length - 1)
+        if (!!gameStates && newStateIndex >= 0 && newStateIndex < gameStates.length - 1)
             setStateIndex(newStateIndex);
     }
+
+    useEffect(() => {
+        if (isPlaying) setTimeout(() => handleStateIncrement(), 100)
+    }, [isPlaying, stateIndex]);
 
     return (
         <TransformWrapper
@@ -66,6 +73,9 @@ function App() {
                         onPrevState={handleStateDecrement}
                         onNextState={handleStateIncrement}
                         onStateIndexChange={handleSetStateIndex}
+                        isPlaying={isPlaying}
+                        onPlay={() => setIsPlaying(true)}
+                        onPause={() => setIsPlaying(false)}
                     />
                     <div className="app-body">
                         <TransformComponent>
