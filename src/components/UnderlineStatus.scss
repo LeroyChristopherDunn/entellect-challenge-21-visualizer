@@ -1,6 +1,9 @@
 .underline-status{
   border-bottom-width: 0.25rem;
   border-bottom-style: solid;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 .underline-status-pass{
   border-bottom-color: lime;
