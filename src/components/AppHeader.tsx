@@ -101,7 +101,7 @@ export function AppHeader(props: {
                 </IconButton>
                 <HorizontalSpace/>
                 <HorizontalSpace/>
-                <div className={'input-wrapper'} style={{width: 50}}>
+                <div className={'input-wrapper'}>
                     <TextField
                         id="outlined-basic"
                         variant="outlined"
