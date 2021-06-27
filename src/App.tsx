@@ -9,6 +9,7 @@ import {GameCanvas} from "./components/GameCanvas";
 
 function App() {
     const [gameStates, setGameStates] = useState<GameTickPayload[]>();
+    const [stateIndex, setStateIndex] = useState(0);
 
     const handleLoadGameFile = async (file?: File) => {
 
@@ -34,6 +35,19 @@ function App() {
         }
     }
 
+    const handleStateDecrement = () => {
+        if (!!gameStates && stateIndex > 0) setStateIndex(stateIndex-1);
+    }
+
+    const handleStateIncrement = () => {
+        if (!!gameStates && stateIndex < gameStates.length - 1) setStateIndex(stateIndex+1);
+    }
+
+    const handleSetStateIndex = (newStateIndex: number) => {
+        if (!!gameStates && newStateIndex > 0 && newStateIndex < gameStates.length - 1)
+            setStateIndex(newStateIndex);
+    }
+
     return (
         <TransformWrapper
             initialScale={1}
@@ -48,11 +62,15 @@ function App() {
                         onZoomIn={() => zoomIn()}
                         onZoomOut={() => zoomOut()}
                         onRestZoom={() => resetTransform()}
+                        stateIndex={stateIndex}
+                        onPrevState={handleStateDecrement}
+                        onNextState={handleStateIncrement}
+                        onStateIndexChange={handleSetStateIndex}
                     />
                     <div className="app-body">
                         <TransformComponent>
                             {!!gameStates && (
-                                <GameCanvas state={gameStates[0]}/>
+                                <GameCanvas state={gameStates[stateIndex]}/>
                             )}
                         </TransformComponent>
                     </div>

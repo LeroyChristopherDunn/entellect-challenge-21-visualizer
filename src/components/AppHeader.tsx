@@ -1,6 +1,9 @@
-import {AppBar, Box, Divider, IconButton, Toolbar, Tooltip} from "@material-ui/core";
+import {AppBar, Box, Divider, IconButton, TextField, Toolbar, Tooltip} from "@material-ui/core";
 import {UnderlineStatus} from "./UnderlineStatus";
 import BackupIcon from "@material-ui/icons/Backup";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import HistoryIcon from '@material-ui/icons/History';
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import ZoomOutIcon from "@material-ui/icons/ZoomOut";
 import ZoomOutMapIcon from "@material-ui/icons/ZoomOutMap";
@@ -12,6 +15,10 @@ export function AppHeader(props: {
     onZoomIn: () => any,
     onZoomOut: () => any,
     onRestZoom: () => any,
+    stateIndex: number,
+    onPrevState: () => any,
+    onNextState: () => any,
+    onStateIndexChange: (stateIndex: number) => any,
 }) {
     return (
         <AppBar position="static" className={'header'}>
@@ -33,20 +40,68 @@ export function AppHeader(props: {
                         </Tooltip>
                     </label>
                 </UnderlineStatus>
+
                 <HorizontalSpace/>
                 <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <Divider orientation="vertical" flexItem/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+
                 <IconButton size={"small"} color="inherit" onClick={props.onZoomIn}>
                     <ZoomInIcon/>
                 </IconButton>
+                <HorizontalSpace/>
                 <HorizontalSpace/>
                 <IconButton size={"small"} color="inherit" onClick={props.onZoomOut}>
                     <ZoomOutIcon/>
                 </IconButton>
                 <HorizontalSpace/>
+                <HorizontalSpace/>
                 <IconButton size={"small"} color="inherit" onClick={props.onRestZoom}>
                     <ZoomOutMapIcon/>
                 </IconButton>
+
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
                 <Divider orientation="vertical" flexItem/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+
+                <IconButton size={"small"} color="inherit" onClick={() => props.onStateIndexChange(0)}>
+                    <HistoryIcon/>
+                </IconButton>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <IconButton size={"small"} color="inherit" onClick={props.onPrevState}>
+                    <ChevronLeftIcon/>
+                </IconButton>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <div className={'input-wrapper'} style={{width: 50}}>
+                    <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        type={'number'}
+                        size={"small"}
+                        value={props.stateIndex}
+                        onChange={e => props.onStateIndexChange(parseInt(e.target.value))}
+                    />
+                </div>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <IconButton size={"small"} color="inherit" onClick={props.onNextState}>
+                    <ChevronRightIcon/>
+                </IconButton>
+                <HorizontalSpace/>
+
             </Toolbar>
         </AppBar>
     )
