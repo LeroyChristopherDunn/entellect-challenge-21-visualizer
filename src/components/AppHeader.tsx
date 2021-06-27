@@ -1,4 +1,4 @@
-import {AppBar, Divider, IconButton, Toolbar, Tooltip} from "@material-ui/core";
+import {AppBar, Box, Divider, IconButton, Toolbar, Tooltip} from "@material-ui/core";
 import {UnderlineStatus} from "./UnderlineStatus";
 import BackupIcon from "@material-ui/icons/Backup";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
@@ -14,7 +14,7 @@ export function AppHeader(props: {
     onRestZoom: () => any,
 }) {
     return (
-        <AppBar position="static">
+        <AppBar position="static" className={'header'}>
             <Toolbar variant="dense">
                 <UnderlineStatus pass={props.gameFileLoaded}>
                     <label htmlFor="btn-upload">
@@ -27,26 +27,29 @@ export function AppHeader(props: {
                             onChange={event => props.onGameFileLoad(event?.target?.files?.[0])}
                         />
                         <Tooltip title="Select game file">
-                            <IconButton
-                                color="inherit"
-                                component={"span"}
-                            >
+                            <IconButton size={"small"} color="inherit" component={"span"} >
                                 <BackupIcon/>
                             </IconButton>
                         </Tooltip>
                     </label>
                 </UnderlineStatus>
-                <Divider orientation="vertical" flexItem/>
-                <IconButton color="inherit" onClick={props.onZoomIn}>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <IconButton size={"small"} color="inherit" onClick={props.onZoomIn}>
                     <ZoomInIcon/>
                 </IconButton>
-                <IconButton color="inherit" onClick={props.onZoomOut}>
+                <HorizontalSpace/>
+                <IconButton size={"small"} color="inherit" onClick={props.onZoomOut}>
                     <ZoomOutIcon/>
                 </IconButton>
-                <IconButton color="inherit" onClick={props.onRestZoom}>
+                <HorizontalSpace/>
+                <IconButton size={"small"} color="inherit" onClick={props.onRestZoom}>
                     <ZoomOutMapIcon/>
                 </IconButton>
+                <Divider orientation="vertical" flexItem/>
             </Toolbar>
         </AppBar>
     )
 }
+
+function HorizontalSpace(){return (<Box mx={0.25}/>)}

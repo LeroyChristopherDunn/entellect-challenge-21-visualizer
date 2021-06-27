@@ -1,4 +1,6 @@
+@import "Theme";
 @import "components/UnderlineStatus";
+@import "components/AppHeader";
 
 .App {
   text-align: center;
@@ -17,7 +19,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: $background-color;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,15 +29,3 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
