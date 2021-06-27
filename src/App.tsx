@@ -29,6 +29,8 @@ function App() {
             }
 
             setGameStates(states);
+            setStateIndex(0);
+            setIsPlaying(false);
 
         }catch (errorLoadingGameFile){
             alert('Error loading game file: ' + errorLoadingGameFile.message);
