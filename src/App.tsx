@@ -3,19 +3,14 @@
 import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import {AppBar, Divider, IconButton, Toolbar, Tooltip} from "@material-ui/core";
-import ZoomInIcon from '@material-ui/icons/ZoomIn';
-import ZoomOutIcon from '@material-ui/icons/ZoomOut';
-import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
-import BackupIcon from '@material-ui/icons/Backup';
 import {TransformComponent, TransformWrapper} from "react-zoom-pan-pinch";
 import {GameTickPayload} from "./Types";
-import {UnderlineStatus} from "./components/UnderlineStatus";
+import {AppHeader} from "./components/AppHeader";
 
 function App() {
     const [gameStates, setGameStates] = useState<GameTickPayload[]>();
 
-    const loadGameStates = async (file?: File) => {
+    const handleLoadGameFile = async (file?: File) => {
 
         try {
             if (!file) throw new Error('Error loading game file: file is undefined');
@@ -47,45 +42,13 @@ function App() {
         >
             {({zoomIn, zoomOut, resetTransform, ...rest}) => (
                 <React.Fragment>
-                    <AppBar position="static">
-                        <Toolbar variant="dense">
-                            <UnderlineStatus pass={!!gameStates}>
-                                <label htmlFor="btn-upload">
-                                    <input
-                                        id="btn-upload"
-                                        name="btn-upload"
-                                        style={{display: 'none'}}
-                                        type="file"
-                                        accept=".json"
-                                        onChange={event => loadGameStates(event?.target?.files?.[0])}
-                                    />
-                                    <Tooltip title="Select game file">
-                                        <IconButton
-                                            color="inherit"
-                                            component={"span"}
-                                        >
-                                            <BackupIcon/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </label>
-                            </UnderlineStatus>
-                            {/*<div style={{borderBottomWidth: 4, borderBottomStyle: "solid", borderBottomColor: "red", ...!!gameStates && {borderBottomColor: "lime"}}}>*/}
-                            {/*    */}
-                            {/*</div>*/}
-
-                            <Divider orientation="vertical" flexItem />
-
-                            <IconButton color="inherit" onClick={() => zoomIn()}>
-                                <ZoomInIcon/>
-                            </IconButton>
-                            <IconButton color="inherit" onClick={() => zoomOut()}>
-                                <ZoomOutIcon/>
-                            </IconButton>
-                            <IconButton color="inherit" onClick={() => resetTransform()}>
-                                <ZoomOutMapIcon/>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+                    <AppHeader
+                        gameFileLoaded={!!gameStates}
+                        onGameFileLoad={handleLoadGameFile}
+                        onZoomIn={() => zoomIn()}
+                        onZoomOut={() => zoomOut()}
+                        onRestZoom={() => resetTransform()}
+                    />
                     <TransformComponent>
                         <div className="App">
                             <header className="App-header">
