@@ -26,6 +26,13 @@ $game-canvas: 300px;
     opacity: 0.25;
   }
 
+  .boundary{
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+    opacity: 0.25;
+  }
+
   .player{
     background-color: white;
   }

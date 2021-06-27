@@ -49,4 +49,8 @@ export class GameObject{
             case 7: return [GameObjectEffect.GAS_CLOUD, GameObjectEffect.AFTERBURNER_ACTIVE, GameObjectEffect.ASTEROID_FIELD];
         }
     }
+
+    static randomFixed(size: number, x: number, y: number){
+        return new GameObject(Math.random().toString(10), [size, 0, 0, 99, x, y]);
+    }
 }

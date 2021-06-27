@@ -80,7 +80,10 @@ function App() {
                     <div className="app-body">
                         <TransformComponent>
                             {!!gameStates && (
-                                <GameCanvas state={gameStates[stateIndex]}/>
+                                <GameCanvas
+                                    maxWorldRadius={gameStates[0].World.Radius}
+                                    state={gameStates[stateIndex]}
+                                />
                             )}
                         </TransformComponent>
                     </div>

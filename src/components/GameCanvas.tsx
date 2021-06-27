@@ -10,9 +10,9 @@ const GAS_CLOUD_TYPE = 4;
 const ASTEROID_TYPE = 5;
 const TORPEDO_TYPE = 6; //todo confirm torpedo type id
 
-export function GameCanvas(props: {state: GameTickPayload}) {
+export function GameCanvas(props: {maxWorldRadius: number, state: GameTickPayload}) {
     const state = props.state;
-    const worldScaleFactor = CANVAS_RADIUS / state.World.Radius;
+    const worldScaleFactor = CANVAS_RADIUS / props.maxWorldRadius;
     const players = Object.keys(state.PlayerObjects).map(id => new GameObject(id, state.PlayerObjects[id]));
     const gameObjects = Object.keys(state.GameObjects).map(id => new GameObject(id, state.GameObjects[id]));
     const foods = gameObjects.filter(obj => obj.type === FOOD_TYPE);
@@ -20,10 +20,13 @@ export function GameCanvas(props: {state: GameTickPayload}) {
     const gasClouds = gameObjects.filter(obj => obj.type === GAS_CLOUD_TYPE);
     const asteroidClouds = gameObjects.filter(obj => obj.type === ASTEROID_TYPE);
     const torpedoes = gameObjects.filter(obj => obj.type === TORPEDO_TYPE);
+
+    const boundary = GameObject.randomFixed(state.World.Radius, 0, 0);
     return (
         <div className={"game-canvas-wrapper"}>
             <div className="game-canvas">
                 <Circle left={0} top={0} radius={CANVAS_RADIUS} className={'object map'}/>
+                <DrawObjects gameObjects={[boundary]} worldScaleFactor={worldScaleFactor} className={'boundary'}/>
                 <DrawObjects gameObjects={gasClouds} worldScaleFactor={worldScaleFactor} className={'gas-cloud'}/>
                 <DrawObjects gameObjects={asteroidClouds} worldScaleFactor={worldScaleFactor} className={'asteroid-cloud'}/>
                 <DrawObjects gameObjects={wormholes} worldScaleFactor={worldScaleFactor} className={'wormhole'}/>
