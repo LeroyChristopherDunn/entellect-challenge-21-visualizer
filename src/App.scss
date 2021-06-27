@@ -1,31 +1,17 @@
 @import "Theme";
-@import "components/UnderlineStatus";
 @import "components/AppHeader";
+@import "components/GameCanvas";
+@import "components/UnderlineStatus";
 
-.App {
-  text-align: center;
-  width: 100vw;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+body{
   background-color: $background-color;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.app-body {
+  width: 100vw;
+  flex: 1;
+  background-color: $background-color;
 }
 

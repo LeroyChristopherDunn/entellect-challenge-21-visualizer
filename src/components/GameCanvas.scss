@@ -1,0 +1,15 @@
+
+.game-canvas-wrapper{
+  display: flex;
+  width: 100vw;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-canvas {
+  width: calc(100vh - 48px);
+  height: calc(100vh - 48px);
+  background-color: white;
+}
+

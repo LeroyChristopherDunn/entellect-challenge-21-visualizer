@@ -15,7 +15,7 @@ export function AppHeader(props: {
 }) {
     return (
         <AppBar position="static" className={'header'}>
-            <Toolbar variant="dense">
+            <Toolbar variant="dense" className={'header'}>
                 <UnderlineStatus pass={props.gameFileLoaded}>
                     <label htmlFor="btn-upload">
                         <input
