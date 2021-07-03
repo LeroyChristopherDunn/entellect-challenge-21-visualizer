@@ -1,0 +1,15 @@
+@import "../Theme";
+
+.game-result-drawer{
+  background-color: $surface-color;
+  width: 25vw;
+  padding: 1rem;
+
+  .list, .list-item{
+    width: 100%;
+  }
+
+  .icon, .text{
+    color: $text-color;
+  }
+}

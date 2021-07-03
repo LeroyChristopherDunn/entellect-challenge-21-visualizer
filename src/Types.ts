@@ -54,3 +54,16 @@ export class GameObject{
         return new GameObject(Math.random().toString(10), [size, 0, 0, 99, x, y]);
     }
 }
+
+export type GameResult = {
+    "TotalTicks": number,
+    "Players": PlayerGameResult[],
+}
+
+export type PlayerGameResult = {
+    "Id": string,
+    "Placement": number,
+    "Seed": number,
+    "Score": number,
+    "Nickname": string,
+}

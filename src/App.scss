@@ -2,16 +2,20 @@
 @import "components/AppHeader";
 @import "components/GameCanvas";
 @import "components/UnderlineStatus";
-
+@import "components/GameResultDrawer";
 
 body{
   background-color: $background-color;
   display: flex;
+  height: calc(100vh - 48px);
 }
 
 .app-body {
+  display: flex;
+  flex-direction: row;
   width: 100vw;
   flex: 1;
+  height: 100%;
   background-color: $background-color;
 }
 

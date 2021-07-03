@@ -14,6 +14,8 @@ import React from "react";
 export function AppHeader(props: {
     gameFileLoaded: boolean,
     onGameFileLoad: (file: File | undefined) => any,
+    gameResultLoaded: boolean,
+    onGameResultLoad: (file: File | undefined) => any,
     onZoomIn: () => any,
     onZoomOut: () => any,
     onRestZoom: () => any,
@@ -29,16 +31,36 @@ export function AppHeader(props: {
         <AppBar position="static" className={'header'}>
             <Toolbar variant="dense" className={'header'}>
                 <UnderlineStatus pass={props.gameFileLoaded}>
-                    <label htmlFor="btn-upload">
+                    <label htmlFor="game-file-upload">
                         <input
-                            id="btn-upload"
-                            name="btn-upload"
+                            id="game-file-upload"
+                            name="game-file-upload"
                             style={{display: 'none'}}
                             type="file"
                             accept=".json"
                             onChange={event => props.onGameFileLoad(event?.target?.files?.[0])}
                         />
                         <Tooltip title="Select game file">
+                            <IconButton size={"small"} color="inherit" component={"span"} >
+                                <BackupIcon/>
+                            </IconButton>
+                        </Tooltip>
+                    </label>
+                </UnderlineStatus>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <HorizontalSpace/>
+                <UnderlineStatus pass={props.gameResultLoaded}>
+                    <label htmlFor="game-result-upload">
+                        <input
+                            id="game-result-upload"
+                            name="game-result-upload"
+                            style={{display: 'none'}}
+                            type="file"
+                            accept=".json"
+                            onChange={event => props.onGameResultLoad(event?.target?.files?.[0])}
+                        />
+                        <Tooltip title="Select game result">
                             <IconButton size={"small"} color="inherit" component={"span"} >
                                 <BackupIcon/>
                             </IconButton>

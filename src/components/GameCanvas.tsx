@@ -1,5 +1,6 @@
 import React from "react";
-import {GameObject, GameTickPayload} from "../Types";
+import {GameObject, GameResult, GameTickPayload, PlayerGameResult} from "../Types";
+import {Typography} from "@material-ui/core";
 
 const CANVAS_RADIUS = 300;
 
@@ -10,8 +11,8 @@ const GAS_CLOUD_TYPE = 4;
 const ASTEROID_TYPE = 5;
 const TORPEDO_TYPE = 6; //todo confirm torpedo type id
 
-export function GameCanvas(props: {maxWorldRadius: number, state: GameTickPayload}) {
-    const state = props.state;
+export function GameCanvas(props: {maxWorldRadius: number, state: GameTickPayload, gameResult?: GameResult}) {
+    const {state, gameResult} = props;
     const worldScaleFactor = CANVAS_RADIUS / props.maxWorldRadius;
     const players = Object.keys(state.PlayerObjects).map(id => new GameObject(id, state.PlayerObjects[id]));
     const gameObjects = Object.keys(state.GameObjects).map(id => new GameObject(id, state.GameObjects[id]));
@@ -32,16 +33,18 @@ export function GameCanvas(props: {maxWorldRadius: number, state: GameTickPayloa
                 <DrawObjects gameObjects={wormholes} worldScaleFactor={worldScaleFactor} className={'wormhole'}/>
                 <DrawObjects gameObjects={foods} worldScaleFactor={worldScaleFactor} className={'food'}/>
                 <DrawObjects gameObjects={torpedoes} worldScaleFactor={worldScaleFactor} className={'torpedo'}/>
-                <DrawObjects gameObjects={players} worldScaleFactor={worldScaleFactor} className={'player'}/>
+                <DrawObjects gameObjects={players} worldScaleFactor={worldScaleFactor} className={'player'} playerResults={gameResult?.Players} />
             </div>
         </div>
     )
 }
 
-function DrawObjects(props: {gameObjects: GameObject[], worldScaleFactor: number, className: string}){
+function DrawObjects(props: {gameObjects: GameObject[], worldScaleFactor: number, className: string, playerResults?: PlayerGameResult[]}){
+    const playerResults = props.playerResults;
     return (
         <>
             {props.gameObjects.map(object => {
+                const tooltip = playerResults?.find(player => object.id === player.Id)?.Nickname;
                 const canvasCoords = mapToCanvasCoords(CANVAS_RADIUS, props.worldScaleFactor, object);
                 return <Circle
                     key={object.id}
@@ -49,6 +52,7 @@ function DrawObjects(props: {gameObjects: GameObject[], worldScaleFactor: number
                     top={canvasCoords.top}
                     radius={canvasCoords.radius}
                     className={'object ' + props.className}
+                    tooltip={tooltip}
                 />
             })}
         </>
@@ -63,13 +67,15 @@ function mapToCanvasCoords(canvasRadius: number, worldScaleFactor: number, gameO
     }
 }
 
-function Circle(props: {left: number, top: number, radius: number, className?: string}){
+function Circle(props: {left: number, top: number, radius: number, className?: string, tooltip?: string}){
     return (
         <div className={props.className} style={{
             left: props.left,
             top: props.top,
             width: props.radius * 2,
             height: props.radius * 2,
-        }}/>
+        }}>
+            <Typography className="object-text" variant="caption">{props.tooltip}</Typography>
+        </div>
     )
 }
